@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Validator;
 
 class ApiController extends Controller
@@ -74,7 +75,7 @@ class ApiController extends Controller
 
     // Profile API - GET (JWT Auth Token)
     public function profile(){
-
+        Log::info("Profile Page Called");
         //$userData = auth()->user();
         $userData = request()->user();
 

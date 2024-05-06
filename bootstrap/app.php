@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+        $middleware->append("\App\Http\Middleware\SetContext");
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
