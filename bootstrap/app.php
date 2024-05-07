@@ -24,9 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(function (RouteNotFoundException $e, Request $request) {
             return response()->json([
-                "status" => false,
-                "message" => $e->getMessage()
-            ], 422); 
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 422);
         });
 
     })->create();

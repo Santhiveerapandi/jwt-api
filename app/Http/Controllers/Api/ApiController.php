@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Validator;
 
@@ -30,85 +30,90 @@ class ApiController extends Controller
         }
         // User model to save user in database
         $user = User::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => bcrypt($request->password)
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
         ]);
 
         return response()->json([
-            "status" => true,
-            "message" => "User registered successfully",
-            "data" => $user
+            'status' => true,
+            'message' => 'User registered successfully',
+            'data' => $user,
         ]);
     }
 
     // Login API - POST (email, password)
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
         // Validation
         $request->validate([
-            "email" => "required|email",
-            "password" => "required"
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
         $token = auth()->attempt([
-            "email" => $request->email,
-            "password" => $request->password
+            'email' => $request->email,
+            'password' => $request->password,
         ]);
 
-        if(!$token){
+        if (! $token) {
 
             return response()->json([
-                "status" => false,
-                "message" => "Invalid login details"
+                'status' => false,
+                'message' => 'Invalid login details',
             ]);
         }
 
         return response()->json([
-            "status" => true,
-            "message" => "User logged in succcessfully",
-            "token" => $token,
-            "expires_in" => auth()->factory()->getTTL() * 60
+            'status' => true,
+            'message' => 'User logged in succcessfully',
+            'token' => $token,
+            'expires_in' => 60 * 60,
+            // "expires_in" => auth()->factory()->getTTL() * 60
         ]);
 
     }
 
     // Profile API - GET (JWT Auth Token)
-    public function profile(){
-        Log::info("Profile Page Called");
+    public function profile()
+    {
+        Log::info('Profile Page Called');
         //$userData = auth()->user();
         $userData = request()->user();
 
         return response()->json([
-            "status" => true,
-            "message" => "Profile data",
-            "data" => $userData,
+            'status' => true,
+            'message' => 'Profile data',
+            'data' => $userData,
             //"user_id" => request()->user()->id,
             //"email" => request()->user()->email
         ]);
     }
 
     // Refresh Token API - GET (JWT Auth Token)
-    public function refreshToken(){
+    public function refreshToken()
+    {
 
         $token = auth()->refresh();
 
         return response()->json([
-            "status" => true,
-            "message" => "New access token",
-            "token" => $token,
+            'status' => true,
+            'message' => 'New access token',
+            'token' => $token,
             //"expires_in" => auth()->factory()->getTTL() * 60
         ]);
     }
 
     // Logout API - GET (JWT Auth Token)
-    public function logout(){
+    public function logout()
+    {
 
         auth()->logout();
 
         return response()->json([
-            "status" => true,
-            "message" => "User logged out successfully"
+            'status' => true,
+            'message' => 'User logged out successfully',
         ]);
     }
 }

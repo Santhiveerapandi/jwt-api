@@ -16,7 +16,8 @@ class SetContext
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Context::add("accessedby", ["user_id" => auth()->id(), "ip"=>$request->ip()]);
+        Context::add('accessedby', ['user_id' => auth()->id(), 'ip' => $request->ip()]);
+
         return $next($request);
     }
 }

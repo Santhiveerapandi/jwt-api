@@ -183,3 +183,34 @@ class ApiController extends Controller
         ]);
     }
 }
+
+----------------------------------
+## Coding Standard Checking 
+1. Larastan Ref: https://github.com/larastan/larastan?tab=readme-ov-file
+> composer require larastan/larastan --dev
+Then, create a phpstan.neon or phpstan.neon.dist file in the root of your application.
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - app/
+
+    # Level 9 is the highest level
+    level: 5
+
+#    ignoreErrors:
+#        - '#PHPDoc tag @var#'
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php
+#
+#    checkMissingIterableValueType: false
+
+> ./vendor/bin/phpstan analyse
+
+2. Pint Ref: https://laravel.com/docs/11.x/pint
+> composer require laravel/pint --dev
+
+>./vendor/bin/pint
